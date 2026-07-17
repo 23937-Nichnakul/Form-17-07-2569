@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ระบบบันทึกข้อมูลนักเรียน</title>
-    <!-- นำเข้าฟอนต์ Prompt -->
+    <!-- นำเข้าฟอนต์ Prompt ที่มีความนุ่มนวลอ่านง่าย -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -19,30 +19,33 @@
         }
 
         body {
-            /* พื้นหลังสีฟ้าพาสเทลละมุน สบายตา */
-            background-color: #f0f7ff;
+            /* พื้นหลังสีฟ้าอ่อนพาสเทล นุ่มนวล สบายตา */
+            background: linear-gradient(135deg, #f0f7ff 0%, #e0effe 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 60px 20px;
+            padding: 40px 20px;
         }
 
-        /* จัดกรอบฟอร์มหลัก */
-        .wrapper {
+        .container {
+            background-color: #ffffff;
             width: 100%;
             max-width: 850px;
+            border-radius: 24px; /* ความโค้งมนระดับพรีเมียม */
+            box-shadow: 0 12px 40px rgba(14, 116, 144, 0.08); /* เงาละมุนไม่ทึบเกินไป */
+            padding: 45px;
         }
 
         /* --- Header Form --- */
         .form-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         .form-header h2 {
             color: #0369a1;
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 700;
             margin-bottom: 8px;
         }
@@ -52,33 +55,30 @@
             font-size: 15px;
         }
 
-        /* --- แยกแต่ละ Section เป็นการ์ดลอย (แก้ปัญหาความโล่ง) --- */
+        /* --- Form Sections --- */
         fieldset {
             border: none;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.05);
-            margin-bottom: 25px;
-            border: 1px solid #e0f2fe;
+            margin-bottom: 35px;
         }
 
         legend {
             font-size: 18px;
             font-weight: 600;
             color: #0284c7;
-            background: #e0f2fe;
-            padding: 6px 18px;
-            border-radius: 30px;
-            margin-bottom: 25px;
-            display: inline-block;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            border-bottom: 2px solid #f0f7ff;
+            padding-bottom: 8px;
         }
 
-        /* จัด Layout คอลัมน์ */
+        /* จัด Layout Grid */
         .form-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
+            gap: 20px 24px;
         }
 
         .full-width {
@@ -95,7 +95,7 @@
         label {
             font-size: 14px;
             color: #334155;
-            font-weight: 600;
+            font-weight: 500;
         }
 
         input[type="text"],
@@ -107,17 +107,17 @@
         select,
         textarea {
             width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
+            padding: 12px 16px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px; /* เพิ่มความโค้งมนให้กล่องกรอก */
             font-size: 14px;
             color: #1e293b;
             background-color: #f8fafc;
             outline: none;
-            transition: all 0.2s ease;
+            transition: all 0.2s ease-in-out;
         }
 
-        /* เอฟเฟกต์นุ่มนวลตอนกดพิมพ์ */
+        /* เอฟเฟกต์ตอนโฟกัส นุ่มนวล ไม่แข็ง */
         input:focus,
         select:focus,
         textarea:focus {
@@ -126,13 +126,99 @@
             box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
         }
 
-        /* ปรับแต่งช่องเลือกสี */
+        /* --- ปรับแต่งตัวเลือกคำนำหน้า (นุ่มนวลและกดง่ายขึ้น) --- */
+        .prefix-group {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .prefix-item {
+            flex: 1;
+            position: relative;
+        }
+
+        .prefix-item input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .prefix-label {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            background-color: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        /* เมื่อตัวเลือกคำนำหน้าถูกคลิกเลือก */
+        .prefix-item input[type="radio"]:checked + .prefix-label {
+            background-color: #e0f2fe;
+            border-color: #0284c7;
+            color: #0369a1;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.1);
+        }
+
+        .prefix-item input[type="radio"]:focus + .prefix-label {
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+        }
+
+        /* --- ปรับแต่ง Radio & Checkbox (โค้งมน สวยงาม) --- */
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .radio-item, .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background-color: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            color: #475569;
+        }
+
+        .radio-item:hover, .checkbox-item:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        /* เมื่อมีการเลือก Radio หรือ Checkbox */
+        .radio-item has(:checked), .checkbox-item has(:checked) {
+            background-color: #e0f2fe;
+            border-color: #0284c7;
+            color: #0369a1;
+        }
+
+        .radio-item input, .checkbox-item input {
+            width: 16px;
+            height: 16px;
+            accent-color: #0284c7; /* สีติ๊กถูกนุ่มนวล */
+            cursor: pointer;
+        }
+
+        /* ปรับช่องเลือกสี */
         input[type="color"] {
             -webkit-appearance: none;
-            border: 2px solid #e2e8f0;
+            border: 1.5px solid #e2e8f0;
             border-radius: 12px;
             width: 100%;
-            height: 50px;
+            height: 48px;
             cursor: pointer;
             background: #f8fafc;
             padding: 6px;
@@ -142,148 +228,79 @@
             border-radius: 8px;
         }
 
-        /* ช่องอัปโหลดไฟล์แบบนุ่มนวล */
+        /* ช่องอัปโหลดไฟล์แบบโค้งมน */
         input[type="file"] {
-            padding: 10px;
-            border: 2px dashed #cbd5e1;
-            background-color: #f8fafc;
+            padding: 8px;
+            border: 1.5px dashed #bae6fd;
+            background-color: #f0f9ff;
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        input[type="file"]:hover {
-            background-color: #f0f9ff;
-            border-color: #38bdf8;
         }
 
-        /* --- ปรับแต่งตัวเลือก (Radio/Checkbox) ให้เป็นปุ่มการ์ดนุ่มนวล ไม่แข็ง --- */
-        .radio-group, .checkbox-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 12px;
-            padding: 4px 0;
-        }
-
-        .custom-option {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 16px;
-            background-color: #f8fafc;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 14px;
-            color: #475569;
-            font-weight: 500;
-            text-align: center;
-        }
-
-        /* ซ่อนกล่องติ๊กดีฟอลต์ที่ดูแข็ง */
-        .custom-option input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        /* เมื่อเอาเมาส์ไปชี้ตัวเลือก */
-        .custom-option:hover {
-            background-color: #f0f9ff;
-            border-color: #bae6fd;
-            color: #0284c7;
-        }
-
-        /* เมื่อกดเลือก (Active State) เปลี่ยนสีเป็นการ์ดฟ้าละมุนทันที */
-        .custom-option:has(input:checked) {
-            background-color: #e0f2fe;
-            border-color: #0284c7;
-            color: #0369a1;
-            font-weight: 600;
-            transform: scale(1.02);
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.1);
-        }
-
-        /* --- ข้อตกลงยินยอม --- */
+        /* --- Agreement Section --- */
         .agreement {
             margin: 30px 0;
-            padding: 20px;
-            background-color: #ffffff;
-            border: 2px solid #e0f2fe;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
+            padding: 16px;
+            background-color: #f0f9ff;
+            border-radius: 12px;
         }
-        
-        .agreement-label {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            font-size: 14px;
+        .agreement .checkbox-item {
+            background: transparent;
+            border: none;
+            padding: 0;
             color: #0369a1;
             font-weight: 500;
-        }
-
-        .agreement-label input {
-            width: 20px;
-            height: 20px;
-            accent-color: #0284c7;
-            cursor: pointer;
         }
 
         /* --- Action Buttons --- */
         .btn-group {
             display: flex;
             gap: 16px;
-            margin-top: 30px;
+            margin-top: 35px;
         }
 
         .btn {
             flex: 1;
-            padding: 16px;
+            padding: 14px;
             border: none;
-            border-radius: 14px;
+            border-radius: 12px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.2s ease-in-out;
         }
 
         .btn-submit {
             background-color: #0284c7;
             color: #ffffff;
-            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.2);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
         }
 
         .btn-submit:hover {
             background-color: #0369a1;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.25);
         }
 
         .btn-reset {
-            background-color: #ffffff;
+            background-color: #f1f5f9;
             color: #64748b;
-            border: 2px solid #e2e8f0;
+            border: 1.5px solid #e2e8f0;
         }
 
         .btn-reset:hover {
-            background-color: #f1f5f9;
+            background-color: #e2e8f0;
             color: #334155;
-            border-color: #cbd5e1;
-            transform: translateY(-2px);
         }
 
-        /* --- Responsive Styles (มือถือ) --- */
+        /* --- Responsive Styles --- */
         @media (max-width: 768px) {
             body {
-                padding: 30px 12px;
+                padding: 20px 10px;
             }
 
-            .form-header h2 {
-                font-size: 26px;
+            .container {
+                padding: 30px 20px;
             }
 
             .form-grid {
@@ -295,13 +312,8 @@
                 grid-column: span 1;
             }
 
-            fieldset {
-                padding: 20px;
-                margin-bottom: 20px;
-            }
-
-            .radio-group, .checkbox-group {
-                grid-template-columns: repeat(2, 1fr); /* บนมือถือแบ่งเป็น 2 คอลัมน์ให้กดง่าย */
+            .prefix-group {
+                flex-wrap: wrap;
             }
 
             .btn-group {
@@ -313,28 +325,40 @@
 </head>
 <body>
 
-    <div class="wrapper">
+    <div class="container">
         <!-- หัวข้อฟอร์ม -->
         <div class="form-header">
-            <h2>ระบบลงทะเบียนข้อมูลนักเรียน</h2>
-            <p>กรุณากรอกรายละเอียดให้ครบถ้วนเพื่อทำการบันทึกประวัติ</p>
+            <h2>ลงทะเบียนข้อมูลนักเรียน</h2>
+            <p>กรุณากรอกข้อมูลให้ครบถ้วนเพื่อความถูกต้องของระบบฐานข้อมูล</p>
         </div>
 
         <form action="#" method="POST" enctype="multipart/form-data">
             
             <!-- Section 1: ข้อมูลส่วนตัว -->
             <fieldset>
-                <legend>👤 1. ข้อมูลส่วนตัว</legend>
+                <legend>✨ 1. ข้อมูลส่วนตัว</legend>
                 <div class="form-grid">
-                    <div class="form-group">
-                        <label for="prefix">คำนำหน้า</label>
-                        <select id="prefix" name="prefix" required>
-                            <option value="" disabled selected>-- เลือกคำนำหน้า --</option>
-                            <option value="นาย">นาย</option>
-                            <option value="นางสาว">นางสาว</option>
-                            <option value="เด็กชาย">เด็กชาย</option>
-                            <option value="เด็กหญิง">เด็กหญิง</option>
-                        </select>
+                    <!-- คำนำหน้าแบบปุ่มกดนุ่มนวลตามที่ขอครับ -->
+                    <div class="form-group full-width">
+                        <label>คำนำหน้า</label>
+                        <div class="prefix-group">
+                            <label class="prefix-item">
+                                <input type="radio" name="prefix" value="นาย" required>
+                                <span class="prefix-label">นาย</span>
+                            </label>
+                            <label class="prefix-item">
+                                <input type="radio" name="prefix" value="นางสาว">
+                                <span class="prefix-label">นางสาว</span>
+                            </label>
+                            <label class="prefix-item">
+                                <input type="radio" name="prefix" value="เด็กชาย">
+                                <span class="prefix-label">เด็กชาย</span>
+                            </label>
+                            <label class="prefix-item">
+                                <input type="radio" name="prefix" value="เด็กหญิง">
+                                <span class="prefix-label">เด็กหญิง</span>
+                            </label>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="fullname">ชื่อ-นามสกุล</label>
@@ -361,7 +385,7 @@
 
             <!-- Section 2: ข้อมูลการติดต่อ -->
             <fieldset>
-                <legend>📞 2. ข้อมูลการติดต่อ</legend>
+                <legend>📱 2. ข้อมูลการติดต่อ</legend>
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="email">อีเมล</label>
@@ -373,7 +397,7 @@
                     </div>
                     <div class="form-group full-width">
                         <label for="address">ที่อยู่ปัจจุบัน</label>
-                        <textarea id="address" name="address" rows="3" placeholder="ระบุบ้านเลขที่, ถนน, ตำบล, อำเภอ..." required></textarea>
+                        <textarea id="address" name="address" rows="3" placeholder="บ้านเลขที่, ถนน, ตำบล, อำเภอ..." required></textarea>
                     </div>
                 </div>
             </fieldset>
@@ -382,17 +406,18 @@
             <fieldset>
                 <legend>🧬 3. ข้อมูลส่วนบุคคล</legend>
                 <div class="form-grid">
-                    <div class="form-group full-width">
+                    <!-- ตัวเลือกเพศแบบปุ่มมนโค้ง -->
+                    <div class="form-group">
                         <label>เพศ</label>
                         <div class="radio-group">
-                            <label class="custom-option">
+                            <label class="radio-item">
                                 <input type="radio" name="gender" value="ชาย" required> ชาย
                             </label>
-                            <label class="custom-option">
+                            <label class="radio-item">
                                 <input type="radio" name="gender" value="หญิง"> หญิง
                             </label>
-                            <label class="custom-option">
-                                <input type="radio" name="gender" value="อื่นๆ"> อื่นๆ / ไม่ระบุ
+                            <label class="radio-item">
+                                <input type="radio" name="gender" value="อื่นๆ"> อื่นๆ
                             </label>
                         </div>
                     </div>
@@ -418,22 +443,15 @@
                             <option value="ภูเก็ต">ภูเก็ต</option>
                         </select>
                     </div>
-                    <div class="form-group full-width">
-                        <label>กรุ๊ปเลือด</label>
-                        <div class="radio-group">
-                            <label class="custom-option">
-                                <input type="radio" name="blood_type" value="A" required> A
-                            </label>
-                            <label class="custom-option">
-                                <input type="radio" name="blood_type" value="B"> B
-                            </label>
-                            <label class="custom-option">
-                                <input type="radio" name="blood_type" value="O"> O
-                            </label>
-                            <label class="custom-option">
-                                <input type="radio" name="blood_type" value="AB"> AB
-                            </label>
-                        </div>
+                    <div class="form-group">
+                        <label for="blood-type">กรุ๊ปเลือด</label>
+                        <select id="blood-type" name="blood_type" required>
+                            <option value="" disabled selected>-- เลือกกรุ๊ปเลือด --</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="O">O</option>
+                            <option value="AB">AB</option>
+                        </select>
                     </div>
                 </div>
             </fieldset>
@@ -445,19 +463,19 @@
                     <div class="form-group full-width">
                         <label>งานอดิเรก (เลือกได้มากกว่า 1 ข้อ)</label>
                         <div class="checkbox-group">
-                            <label class="custom-option">
+                            <label class="checkbox-item">
                                 <input type="checkbox" name="hobbies[]" value="อ่านหนังสือ"> อ่านหนังสือ
                             </label>
-                            <label class="custom-option">
+                            <label class="checkbox-item">
                                 <input type="checkbox" name="hobbies[]" value="เล่นกีฬา"> เล่นกีฬา
                             </label>
-                            <label class="custom-option">
+                            <label class="checkbox-item">
                                 <input type="checkbox" name="hobbies[]" value="เล่นเกม"> เล่นเกม
                             </label>
-                            <label class="custom-option">
+                            <label class="checkbox-item">
                                 <input type="checkbox" name="hobbies[]" value="วาดภาพ"> วาดภาพ
                             </label>
-                            <label class="custom-option">
+                            <label class="checkbox-item">
                                 <input type="checkbox" name="hobbies[]" value="ดนตรี"> ฟังเพลง/ดนตรี
                             </label>
                         </div>
@@ -536,7 +554,7 @@
 
             <!-- Section 8: ยืนยันข้อมูล -->
             <div class="agreement">
-                <label class="agreement-label">
+                <label class="checkbox-item">
                     <input type="checkbox" name="terms_agreement" required>
                     <span>ฉันยอมรับว่าข้อมูลทั้งหมดถูกต้องตรงตามความเป็นจริงและยอมรับเงื่อนไขการใช้งาน</span>
                 </label>
