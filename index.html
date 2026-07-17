@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบบันทึกข้อมูลนักเรียน - Ultra Smooth & Fully Rounded</title>
+    <title>ระบบบันทึกข้อมูลนักเรียน</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@
             background-color: #ffffff;
             width: 100%;
             max-width: 850px;
-            border-radius: 28px; /* เพิ่มความมนโค้งพรีเมียม */
+            border-radius: 28px;
             box-shadow: 0 12px 40px rgba(14, 116, 144, 0.05);
             padding: 45px;
         }
@@ -90,18 +90,17 @@
             font-weight: 500;
         }
 
-        /* --- Standard Inputs (ดีไซน์มนโค้งและสมูทเวลากด) --- */
+        /* --- Standard Inputs & Date (ช่องเลือกปีเกิด) --- */
         input[type="text"],
         input[type="number"],
         input[type="email"],
         input[type="tel"],
-        input[type="date"],
         input[type="url"],
         textarea {
             width: 100%;
             padding: 13px 18px;
             border: 1.5px solid #e2e8f0;
-            border-radius: 16px; /* ปรับระดับความโค้งมนให้มากขึ้น */
+            border-radius: 16px;
             font-size: 14px;
             color: #1e293b;
             background-color: #f8fafc;
@@ -115,20 +114,50 @@
             box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
         }
 
-        /* --- กล่องตัวเลือก CUSTOM DROPDOWN อัลตร้าสมูท --- */
+        /* เพิ่มความสมูทในการกดเลือกและดีไซน์ให้ Date Picker */
+        input[type="date"] {
+            width: 100%;
+            padding: 13px 18px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 16px;
+            font-size: 14px;
+            color: #1e293b;
+            background-color: #f8fafc;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        input[type="date"]:focus {
+            border-color: #38bdf8;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
+        }
+        /* ปรับดีไซน์ปุ่มกดปฏิทินในเบราว์เซอร์ให้โค้งมนและเปลี่ยนสีนุ่มนวล */
+        ::-webkit-calendar-picker-indicator {
+            background-color: transparent;
+            padding: 4px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+        ::-webkit-calendar-picker-indicator:hover {
+            background-color: #e0f2fe;
+            transform: scale(1.1);
+        }
+
+        /* --- Custom Dropdown (คำนำหน้าและตัวเลือกอื่น ๆ) --- */
         .custom-select-wrapper {
             position: relative;
             user-select: none;
         }
 
-        /* ส่วนหัวข้อแสดงผลของ Dropdown */
         .custom-select-trigger {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 13px 18px;
             border: 1.5px solid #e2e8f0;
-            border-radius: 16px; /* มนโค้งเข้าเซ็ตกับ Input อื่น */
+            border-radius: 16px;
             font-size: 14px;
             color: #1e293b;
             background-color: #f8fafc;
@@ -136,7 +165,6 @@
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ลูกศรชี้ลง */
         .custom-select-trigger::after {
             content: '';
             width: 8px;
@@ -148,7 +176,6 @@
             transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s;
         }
 
-        /* ตอนเปิดใช้ Dropdown */
         .custom-select-wrapper.open .custom-select-trigger {
             border-color: #38bdf8;
             background-color: #ffffff;
@@ -161,7 +188,6 @@
             border-color: #0284c7;
         }
 
-        /* แผงรวมตัวเลือกย่อย (Ultra-Smooth Animation) */
         .custom-options {
             position: absolute;
             display: block;
@@ -169,12 +195,10 @@
             left: 0;
             right: 0;
             background: #ffffff;
-            border-radius: 18px; /* ขอบแผงตัวเลือกมนโค้งพิเศษ */
+            border-radius: 18px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             border: 1px solid #e2e8f0;
             z-index: 100;
-            
-            /* อัลตร้าสมูทเอฟเฟกต์ด้วย Slide + Fade */
             opacity: 0;
             visibility: hidden;
             transform: translateY(-12px) scale(0.99);
@@ -184,34 +208,31 @@
             overflow: hidden;
         }
 
-        /* เล่นแอนิเมชันเปิดแบบลื่นไหล */
         .custom-select-wrapper.open .custom-options {
             opacity: 1;
             visibility: visible;
             transform: translateY(0) scale(1);
         }
 
-        /* ตัวเลือกแต่ละแถวด้านใน */
         .custom-option {
             padding: 12px 18px;
             font-size: 14px;
             color: #475569;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .custom-option:hover {
             background-color: #e0f2fe;
             color: #0369a1;
-            padding-left: 24px; /* เอฟเฟกต์ขยับตัวอักษรไปทางขวาเบาๆ ดูลื่นไหล */
+            padding-left: 24px;
         }
 
-        /* ซ่อน Select ดั้งเดิมของเบราว์เซอร์ */
         .hidden-select {
             display: none;
         }
 
-        /* --- Radio & Checkbox (ดีไซน์มนโค้งพาสเทล) --- */
+        /* --- Checkbox & Radio (ปรับปรุงการเปลี่ยนสถานะให้สมูทสูงสุด) --- */
         .radio-group, .checkbox-group {
             display: flex;
             flex-wrap: wrap;
@@ -221,65 +242,138 @@
         .radio-item, .checkbox-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 11px 18px;
+            gap: 10px;
+            padding: 12px 20px;
             background-color: #f8fafc;
             border: 1.5px solid #e2e8f0;
-            border-radius: 14px; /* มนโค้ง */
+            border-radius: 16px;
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 14px;
             color: #475569;
+            position: relative;
+            overflow: hidden;
         }
 
+        /* ทรานซิชันสีและขนาดเมื่อสัมผัสและคลิก */
         .radio-item:hover, .checkbox-item:hover {
             background-color: #f1f5f9;
             border-color: #cbd5e1;
+            transform: translateY(-1px);
         }
 
-        /* เอฟเฟกต์นุ่มๆ ตอนเลือก */
-        .radio-item input:checked, .checkbox-item input:checked {
-            transform: scale(1.05);
-        }
-
+        /* สไตล์ไอคอนดั้งเดิมซ่อนไว้และตกแต่งด้วย Accent Color แบบลื่นไหล */
         .radio-item input, .checkbox-item input {
-            width: 17px;
-            height: 17px;
+            width: 18px;
+            height: 18px;
             accent-color: #0284c7;
-            transition: transform 0.2s ease;
+            cursor: pointer;
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ช่องเลือกสีแบบมน */
-        input[type="color"] {
-            -webkit-appearance: none;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 16px;
+        /* เมื่อคลิกติ๊กเลือก ให้มีการขยับขยายตัวเล็กน้อยดูมีมิติ */
+        .radio-item:has(input:checked), .checkbox-item:has(input:checked) {
+            background-color: #e0f2fe;
+            border-color: #38bdf8;
+            color: #0369a1;
+        }
+
+        .radio-item input:checked, .checkbox-item input:checked {
+            transform: scale(1.15);
+        }
+
+        /* --- Color Input (ตกแต่งช่องเลือกสีใหม่ให้หรูหรามนโค้งและขยับสมูท) --- */
+        .color-picker-wrapper {
+            position: relative;
             width: 100%;
             height: 50px;
-            cursor: pointer;
-            background: #f8fafc;
-            padding: 6px;
-            transition: all 0.2s;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1.5px solid #e2e8f0;
+            background-color: #f8fafc;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        .color-picker-wrapper:hover {
+            border-color: #cbd5e1;
+            transform: translateY(-1px);
+        }
+
+        .color-picker-wrapper:focus-within {
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
+        }
+
+        input[type="color"] {
+            -webkit-appearance: none;
+            border: none;
+            width: calc(100% + 20px);
+            height: calc(100% + 20px);
+            position: absolute;
+            left: -10px;
+            top: -10px;
+            cursor: pointer;
+            background: none;
+        }
+
+        ::-webkit-color-swatch-wrapper {
+            padding: 10px;
+        }
+
         ::-webkit-color-swatch {
             border: none;
             border-radius: 10px;
         }
 
-        /* อัปโหลดไฟล์แบบมน */
-        input[type="file"] {
-            padding: 10px;
+        /* --- File Input (ปรับการชี้เมาส์ลากไฟล์และเลือกให้มีแอนิเมชันเคลื่อนไหว) --- */
+        .file-upload-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
             border: 1.5px dashed #bae6fd;
             background-color: #f0f9ff;
             border-radius: 16px;
             cursor: pointer;
-            transition: all 0.2s;
-        }
-        input[type="file"]:hover {
-            background-color: #e0f2fe;
-            border-color: #38bdf8;
+            text-align: center;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        .file-upload-wrapper:hover {
+            background-color: #e0f2fe;
+            border-color: #38bdf8;
+            transform: scale(1.01);
+        }
+
+        .file-upload-wrapper input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-upload-icon {
+            font-size: 24px;
+            margin-bottom: 6px;
+            transition: transform 0.25s ease;
+        }
+
+        .file-upload-wrapper:hover .file-upload-icon {
+            transform: translateY(-3px);
+        }
+
+        .file-upload-text {
+            font-size: 13px;
+            color: #0369a1;
+            font-weight: 500;
+        }
+
+        /* --- ส่วนอื่น ๆ และปุ่ม --- */
         .agreement {
             margin: 30px 0;
             padding: 16px;
@@ -293,8 +387,10 @@
             color: #0369a1;
             font-weight: 500;
         }
+        .agreement .checkbox-item:hover {
+            transform: none;
+        }
 
-        /* --- Buttons --- */
         .btn-group {
             display: flex;
             gap: 16px;
@@ -305,7 +401,7 @@
             flex: 1;
             padding: 14px;
             border: none;
-            border-radius: 16px; /* ปุ่มมนสวยงาม */
+            border-radius: 16px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
@@ -351,17 +447,17 @@
     <div class="container">
         <div class="form-header">
             <h2>ลงทะเบียนข้อมูลนักเรียน</h2>
-            <p>ระบบกรอกข้อมูลเวอร์ชัน Ultra-Smooth นุ่มนวลและมนโค้งทุกสัมผัส</p>
+            <p>กรุณากรอกข้อมูลส่วนตัวของท่านให้ครบถ้วนเพื่อผลประโยชน์ในการลงทะเบียน</p>
         </div>
 
         <form action="#" method="POST" enctype="multipart/form-data">
             
             <!-- Section 1: ข้อมูลส่วนตัว -->
             <fieldset>
-                <legend>✨ 1. ข้อมูลส่วนตัว</legend>
+                <legend>1. ข้อมูลส่วนตัว</legend>
                 <div class="form-grid">
                     
-                    <!-- เอากลับมาเป็นแบบสไลด์เลือกสมูทๆ ตามที่ขอแล้วครับ -->
+                    <!-- Dropdown คำนำหน้าแบบสไลด์ปรับปรุงใหม่ -->
                     <div class="form-group">
                         <label>คำนำหน้า</label>
                         <div class="custom-select-wrapper">
@@ -394,6 +490,8 @@
                         <label for="student-id">เลขประจำตัวนักเรียน</label>
                         <input type="text" id="student-id" name="student_id" pattern="[0-9]{5}" placeholder="รหัส 5 หลัก เช่น 12345" required>
                     </div>
+                    
+                    <!-- ช่องวันเกิดปรับสมูท -->
                     <div class="form-group">
                         <label for="birthdate">วันเดือนปีเกิด</label>
                         <input type="date" id="birthdate" name="birthdate" required>
@@ -407,7 +505,7 @@
 
             <!-- Section 2: ข้อมูลการติดต่อ -->
             <fieldset>
-                <legend>📱 2. ข้อมูลการติดต่อ</legend>
+                <legend>2. ข้อมูลการติดต่อ</legend>
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="email">อีเมล</label>
@@ -426,7 +524,7 @@
 
             <!-- Section 3: ข้อมูลส่วนบุคคล -->
             <fieldset>
-                <legend>🧬 3. ข้อมูลส่วนบุคคล</legend>
+                <legend>3. ข้อมูลส่วนบุคคล</legend>
                 <div class="form-grid">
                     <div class="form-group">
                         <label>เพศ</label>
@@ -508,7 +606,7 @@
 
             <!-- Section 4: ความสนใจ -->
             <fieldset>
-                <legend>🎨 4. ความสนใจ</legend>
+                <legend>4. ความสนใจ</legend>
                 <div class="form-grid">
                     <div class="form-group full-width">
                         <label>งานอดิเรก (เลือกได้มากกว่า 1 ข้อ)</label>
@@ -520,9 +618,13 @@
                             <label class="checkbox-item"><input type="checkbox" name="hobbies[]" value="ดนตรี"> ฟังเพลง/ดนตรี</label>
                         </div>
                     </div>
+                    
+                    <!-- เลือกสีแบบสมูทและโค้งมน -->
                     <div class="form-group">
-                        <label for="fav-color">สีที่ชอบ</label>
-                        <input type="color" id="fav-color" name="fav_color" value="#0284c7">
+                        <label>สีที่ชอบ</label>
+                        <div class="color-picker-wrapper">
+                            <input type="color" id="fav-color" name="fav_color" value="#0284c7">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="fav-website">เว็บไซต์ที่ชอบ (URL)</label>
@@ -533,7 +635,7 @@
 
             <!-- Section 5: ข้อมูลการศึกษา -->
             <fieldset>
-                <legend>🎓 5. ข้อมูลการศึกษา</legend>
+                <legend>5. ข้อมูลการศึกษา</legend>
                 <div class="form-grid">
                     <!-- Custom Dropdown: ระดับชั้น -->
                     <div class="form-group">
@@ -593,24 +695,32 @@
                 </div>
             </fieldset>
 
-            <!-- Section 6: การอัปโหลดไฟล์ -->
+            <!-- Section 6: การอัปโหลดไฟล์ (ปรับเปลี่ยนใหม่ให้ลื่นไหลและดูทันสมัย) -->
             <fieldset>
-                <legend>📁 6. การอัปโหลดไฟล์</legend>
+                <legend>6. การอัปโหลดไฟล์</legend>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="avatar-img">รูปภาพประจำตัว (.jpg, .png)</label>
-                        <input type="file" id="avatar-img" name="avatar_img" accept="image/*" required>
+                        <label>รูปภาพประจำตัว (.jpg, .png)</label>
+                        <div class="file-upload-wrapper">
+                            <div class="file-upload-icon">🖼️</div>
+                            <div class="file-upload-text" id="avatar-text">อัปโหลดรูปภาพประจำตัว</div>
+                            <input type="file" id="avatar-img" name="avatar_img" accept="image/*" required>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="doc-file">เอกสารเพิ่มเติม (.pdf, .zip)</label>
-                        <input type="file" id="doc-file" name="doc_file" accept=".pdf,.zip">
+                        <label>เอกสารเพิ่มเติม (.pdf, .zip)</label>
+                        <div class="file-upload-wrapper">
+                            <div class="file-upload-icon">📄</div>
+                            <div class="file-upload-text" id="doc-text">อัปโหลดเอกสารเพิ่มเติม</div>
+                            <input type="file" id="doc-file" name="doc_file" accept=".pdf,.zip">
+                        </div>
                     </div>
                 </div>
             </fieldset>
 
             <!-- Section 7: ความคิดเห็นเพิ่มเติม -->
             <fieldset>
-                <legend>💬 7. ความคิดเห็นเพิ่มเติม</legend>
+                <legend>7. ความคิดเห็นเพิ่มเติม</legend>
                 <div class="form-group">
                     <label for="comments">แสดงความคิดเห็น / ข้อมูลเพิ่มเติม</label>
                     <textarea id="comments" name="comments" rows="4" placeholder="กรอกรายละเอียดเพิ่มเติม..."></textarea>
@@ -632,49 +742,58 @@
         </form>
     </div>
 
-    <!-- --- JS จัดการเรื่องความสมูทของทุก Dropdown --- -->
+    <!-- --- JS จัดการพฤติกรรมความลื่นไหลของ Dropdown และ File Input --- -->
     <script>
+        // 1. จัดการ Custom Dropdown
         document.querySelectorAll('.custom-select-wrapper').forEach(wrapper => {
             const trigger = wrapper.querySelector('.custom-select-trigger');
             const options = wrapper.querySelectorAll('.custom-option');
             const hiddenSelect = wrapper.querySelector('.hidden-select');
 
-            // 1. เปิด-ปิดเมนูตัวเลือกอย่างนุ่มนวล
             trigger.addEventListener('click', function(e) {
                 e.stopPropagation();
-                
-                // ปิดกล่องอื่นๆ ก่อน หากเปิดค้างไว้
                 document.querySelectorAll('.custom-select-wrapper').forEach(otherWrapper => {
                     if (otherWrapper !== wrapper) otherWrapper.classList.remove('open');
                 });
-                
                 wrapper.classList.toggle('open');
             });
 
-            // 2. เลือกค่าใน Dropdown
             options.forEach(option => {
                 option.addEventListener('click', function() {
                     const value = this.getAttribute('data-value');
                     const text = this.textContent;
 
-                    // เปลี่ยนข้อความบนหัวข้อ
                     trigger.textContent = text;
                     trigger.style.color = '#1e293b'; 
-
-                    // ส่งค่าเข้ากล่อง Select จริงเบื้องหลัง
                     hiddenSelect.value = value;
-                    
-                    // สั่งปิดกล่อง
                     wrapper.classList.remove('open');
                 });
             });
         });
 
-        // 3. คลิกที่อื่นนอกพื้นที่ Dropdown ให้ปิดลงมาอย่างนุ่มนวล
         document.addEventListener('click', function() {
             document.querySelectorAll('.custom-select-wrapper').forEach(wrapper => {
                 wrapper.classList.remove('open');
             });
+        });
+
+        // 2. จัดการไฟล์อัปโหลด เมื่อเลือกไฟล์แล้วให้แสดงชื่อไฟล์อย่างนุ่มนวล
+        const avatarInput = document.getElementById('avatar-img');
+        const avatarText = document.getElementById('avatar-text');
+        avatarInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                avatarText.textContent = this.files[0].name;
+                avatarText.style.color = '#0284c7';
+            }
+        });
+
+        const docInput = document.getElementById('doc-file');
+        const docText = document.getElementById('doc-text');
+        docInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                docText.textContent = this.files[0].name;
+                docText.style.color = '#0284c7';
+            }
         });
     </script>
 </body>
